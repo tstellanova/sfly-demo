@@ -1,0 +1,14 @@
+scale_init: 1
+fixed_scale: true
+fixed_bias: false
+noise_acc: 0.083
+noise_accbias: 0.0083
+noise_gyr: 0.0013
+noise_gyrbias: 0.0013
+noise_scale: 0.00001
+noise_qwv: 0.00001
+noise_qci: 0.00001
+noise_pic: 0.01
+delay: 0.0
+meas_noise1: 1.0
+meas_noise2: 0.1

@@ -1,4 +1,4 @@
-serial_port:            /dev/ttyUSB1
+serial_port:            /dev/ttyUSB0
 baudrate:               460800
 packet_rate_imu:        50.0
 packet_rate_rc:         5.0

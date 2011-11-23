@@ -1,0 +1,6 @@
+<launch>
+	<!--include file="$(find sfly_launch)/launch/hex_tf_setup.launch" /-->
+  <include file="$(find sfly_launch)/launch/hex_imu.launch" />
+  <!--include file="$(find sfly_launch)/launch/hex_cam_bottom.launch" / -->
+  <include file="$(find sfly_launch)/launch/hex_cam_bluefox.launch" />
+</launch>

@@ -1,0 +1,12 @@
+<launch>    
+    <arg name="machine" default="localhost"/>
+    <include file="$(find mav_startup)/launch/$(arg machine).machine" />
+
+    
+    <node name="ptam" pkg="ptam" type="ptam" clear_params="true" output="screen" machine="$(arg machine)" ns="$(arg machine)">
+	    <remap from="image" to="camera/image_raw" />
+	    <param name="image_transport" value="raw" />
+      <rosparam file="$(find mav_startup)/parameters/ptam.yaml" />
+      <rosparam file="$(find mav_startup)/parameters/$(arg machine)_cam_calib.yaml" />
+	  </node>
+</launch>

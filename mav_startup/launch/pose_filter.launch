@@ -1,0 +1,13 @@
+<launch>
+    <arg name="machine" default="localhost"/>
+    <include file="$(find sfly_launch)/launch/$(arg machine).machine" />
+
+    <node machine="$(arg machine)" name="gps_filter" pkg="pose_filter_updates" type="gps_filter" clear_params="true" output="screen" ns="$(arg machine)">
+	    <remap from="pose_filter/hl_state_input" to="fcu/ekf_state_out" />
+	    <remap from="pose_filter/correction" to="fcu/ekf_state_in" />
+	    <remap from="pose_filter/vision_pose" to="vslam/pose" />
+	    <remap from="pose_filter/mag_dir" to="fcu/mag" />
+	    <remap from="pose_filter/gps_pos" to="fcu/gps_position_custom" />
+	    <rosparam file="$(find mav_startup)/parameters/dekf.yaml"/>
+    </node>
+</launch>
