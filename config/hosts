@@ -1,0 +1,15 @@
+# copy this to /etc/hosts
+
+192.168.0.101   mav1-lan
+192.168.0.201   mav1-wlan
+192.168.0.102   mav2-lan
+192.168.0.202   mav2-wlan
+192.168.0.103   mav3-lan
+192.168.0.203   mav3-wlan
+192.168.0.104   mav4-lan
+192.168.0.204   mav4-wlan
+192.168.0.51    gcs-ma
+192.168.0.52    gcs-lm
+192.168.0.53    gcs-lk
+192.168.0.54    gcs-sw
+192.168.0.55    gcs-lh
