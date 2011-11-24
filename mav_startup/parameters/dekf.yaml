@@ -1,14 +1,19 @@
 scale_init: 1
-fixed_scale: true
+fixed_scale: false
 fixed_bias: false
 noise_acc: 0.083
 noise_accbias: 0.0083
 noise_gyr: 0.0013
 noise_gyrbias: 0.0013
-noise_scale: 0.00001
-noise_qwv: 0.00001
-noise_qci: 0.00001
-noise_pic: 0.01
-delay: 0.0
-meas_noise1: 1.0
-meas_noise2: 0.1
+noise_scale: 0.05
+noise_qwv: 0.001
+noise_qci: 0.001
+noise_pic: 0.001
+delay: 0.02
+meas_noise1: 0.01	# vision att
+meas_noise2: 0.02	# vision pos
+meas_noise3: 0.002	# mag
+meas_noise4: 0.5	# gps pos xy
+meas_noise5: 0.1	# press pos z
+meas_noise6: 0.2	# gps vel xy
+
