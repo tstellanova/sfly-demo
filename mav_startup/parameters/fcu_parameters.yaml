@@ -1,11 +1,11 @@
 serial_port:            /dev/ttyUSB0
 baudrate:               460800
-packet_rate_imu:        50.0
-packet_rate_rc:         5.0
-packet_rate_gps:        10.0
-packet_rate_ssdk_debug: 20.0
-packet_rate_ekf_state:  100.0
-packet_rate_mag:        100.0
+packet_rate_imu:        0.0
+packet_rate_rc:         0.0
+packet_rate_gps:        0.0
+packet_rate_ssdk_debug: 0.0
+packet_rate_ekf_state:  0.0
+packet_rate_mag:        0.0
 max_velocity_xy:        2.0
 max_velocity_z:         2.0
 

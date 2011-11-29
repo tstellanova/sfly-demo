@@ -7,9 +7,9 @@ binning_y: 0
 camera_info_url: ''
 color_coding: mono8
 exposure: 90
-frame_rate: 25.0
+frame_rate: 30.0
 gain: 0.0
-gain_auto: true
+gain_auto: false
 gain_auto_max: 12.0
 gain_auto_min: 0.0
 hdr_mode: 'off'
