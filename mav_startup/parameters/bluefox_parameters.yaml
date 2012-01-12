@@ -16,8 +16,8 @@ hdr_mode: 'off'
 pixel_clock: 20.0
 roi_height: 480
 roi_width: 752
-shutter: 0.0027369999999999998
-shutter_auto: true
+shutter: 0.00015
+shutter_auto: false
 shutter_auto_max: 0.0050000000000000001
 shutter_auto_min: 6.0000000000000002e-06
 use_ros_time: false

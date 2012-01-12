@@ -1,6 +1,6 @@
 <launch>
     <arg name="machine" default="localhost"/>
-    <include file="$(find mav_startup)/launch/$(arg machine).machine" />
+    <include file="$(find mav_startup)/machine/$(arg machine).machine" />
 
     <node name="cam" pkg="bluefox" type="bluefox_node" respawn="true" output="screen" clear_params="true" ns="$(arg machine)" machine="$(arg machine)">
       <param name="frame_id" value="$(arg machine)/camera"/>

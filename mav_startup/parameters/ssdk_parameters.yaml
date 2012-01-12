@@ -26,8 +26,8 @@ ssdk/zeta_xy:        1.0
 
 ssdk/p20:            32.0    # max overall thrust [N]
 
-ssdk/p48:            1.0     # max acc refmodel x y [m/s^2]
-ssdk/p49:            1.0     # max acc refmodel z [m/s^2]
+ssdk/p48:            2.0     # max acc refmodel x y [m/s^2]
+ssdk/p49:            2.0     # max acc refmodel z [m/s^2]
 ssdk/p16:            5.0     # max speed refmodel stick input
 
 ssdk/listen_on_tf:  false

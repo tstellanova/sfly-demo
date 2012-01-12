@@ -21,10 +21,11 @@ GLWindowMenu_mgvnMenuTextOffset: 20
 InitLevel: 1
 MaxKFDistWiggleMult: 1
 MaxPatchesPerFrame: 300
-MaxKF: 3
+MaxKF: 15
 parent_frame: world
 TrackingQualityFoundPixels: 50
 UseKFPixelDist: True
 NoLevelZeroMapPoints: True
 FASTMethod: OAST16
 MaxStereoInitLoops: 4
+AutoInitPixel: 40

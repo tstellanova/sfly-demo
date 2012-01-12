@@ -1,0 +1,9 @@
+<launch>
+    <arg name="machine" default="localhost"/>
+    <rosparam command="load" file="$(find mav_startup)/parameters/gps_ref_irchelpark.yaml"/>
+    <include file="$(find mav_startup)/launch/imu.launch" >              <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/gps_conversion.launch" >   <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/cam.launch" >              <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/ptam.launch" >             <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/sensor_fusion.launch" >    <arg name="machine" value="$(arg machine)"/> </include>
+</launch>

@@ -1,8 +1,8 @@
 <launch>
     <arg name="machine" default="localhost"/>
-    <include file="$(find mav_startup)/launch/$(arg machine).machine" />
+    <include file="$(find mav_startup)/machine/$(arg machine).machine" />
 
-    <node machine="$(arg machine)" name="gps_conversion" pkg="asctec_hl_gps" type="gps_conversion" clear_params="true" output="screen" ns="$(arg machine)">
+    <node machine="$(arg machine)" name="gps_conversion" pkg="asctec_hl_gps" type="gps_conversion" respawn="true" clear_params="true" output="screen" ns="$(arg machine)">
     <param name="use_pressure_height" value="True"/>
     </node>
 </launch>
