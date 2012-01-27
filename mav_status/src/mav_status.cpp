@@ -11,7 +11,8 @@ MavStatus::MavStatus():last_update_fcu_(ros::Time(0)), last_update_vismaggps_(ro
 {
   ros::NodeHandle nh;
 
-  sub_fcu_status_ = nh.subscribe("fcu/status", 100, &MavStatus::fcuCallback, this);
+  sub_fcu_status_ = nh.subscribe("fcu/status", 100, &MavStatus::fcuStatusCallback, this);
+  sub_fcu_rc_ = nh.subscribe("fcu/rcdata", 100, &MavStatus::fcuRcCallback, this);
   sub_ssdk_debug_ = nh.subscribe("fcu/debug", 100, &MavStatus::ssdkCallback, this);
   sub_vismaggps_status_ = nh.subscribe("sensor_fusion/status", 100, &MavStatus::vismaggpsCallback, this);
 
@@ -25,7 +26,7 @@ MavStatus::MavStatus():last_update_fcu_(ros::Time(0)), last_update_vismaggps_(ro
   ns_ = "/" + ns_;
 }
 
-void MavStatus::fcuCallback(const asctec_hl_comm::mav_statusConstPtr & msg)
+void MavStatus::fcuStatusCallback(const asctec_hl_comm::mav_statusConstPtr & msg)
 {
   status_msg_.header.stamp = msg->header.stamp;
   last_update_fcu_ = ros::Time::now(); // use current time, otherwise log replay won't work
@@ -34,26 +35,35 @@ void MavStatus::fcuCallback(const asctec_hl_comm::mav_statusConstPtr & msg)
   status_msg_.gps_num_satellites = msg->gps_num_satellites;
 
   status_msg_.hl_interface_enabled = msg->serial_interface_enabled;
+}
 
-  if (msg->serial_interface_enabled)
+void MavStatus::fcuRcCallback(const asctec_hl_comm::mav_rcdataConstPtr & msg)
+{
+  status_msg_.header.stamp = msg->header.stamp;
+
+  uint16_t si = msg->channel[4]; // serial interface
+  uint16_t fm = msg->channel[5]; // flight mode
+
+  if (si > 4000)
   {
-    if (msg->flight_mode_ll == "Height")
+    if (fm > 2000 && fm < 2100)
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_HL_HEIGHT;
-    else if (msg->flight_mode_ll == "GPS")
+    else if (fm > 4000)
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_HL_POS;
     else
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_MANUAL;
   }
   else
   {
-    if (msg->flight_mode_ll == "Height")
+    if (fm > 2000 && fm < 2100)
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_LL_HEIGHT;
-    else if (msg->flight_mode_ll == "GPS")
+    else if (fm > 4000)
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_LL_GPS;
     else
       status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_MANUAL;
   }
 }
+
 
 void MavStatus::ssdkCallback(const asctec_hl_comm::DoubleArrayStampedConstPtr & msg)
 {

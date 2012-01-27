@@ -11,6 +11,7 @@
 #include <ros/ros.h>
 
 #include <asctec_hl_comm/mav_status.h>
+#include <asctec_hl_comm/mav_rcdata.h>
 #include <asctec_hl_comm/DoubleArrayStamped.h>
 #include <vismaggps_fusion/Status.h>
 #include <mav_status/Status.h>
@@ -19,6 +20,7 @@ class MavStatus
 {
 private:
   ros::Subscriber sub_fcu_status_;
+  ros::Subscriber sub_fcu_rc_;
   ros::Subscriber sub_vismaggps_status_;
   ros::Subscriber sub_ssdk_debug_;
 
@@ -32,7 +34,8 @@ private:
   std::string ns_;
 
   bool watchdog(const ros::Time & time);
-  void fcuCallback(const asctec_hl_comm::mav_statusConstPtr & msg);
+  void fcuStatusCallback(const asctec_hl_comm::mav_statusConstPtr & msg);
+  void fcuRcCallback(const asctec_hl_comm::mav_rcdataConstPtr & msg);
   void ssdkCallback(const asctec_hl_comm::DoubleArrayStampedConstPtr & msg);
   void vismaggpsCallback(const vismaggps_fusion::StatusConstPtr & msg);
 
