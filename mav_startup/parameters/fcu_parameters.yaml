@@ -6,8 +6,8 @@ packet_rate_gps:        10.0
 packet_rate_ssdk_debug: 20.0
 packet_rate_ekf_state:  100.0
 packet_rate_mag:        100.0
-max_velocity_xy:        2.0
-max_velocity_z:         2.0
+max_velocity_xy:        1.0
+max_velocity_z:         1.0
 
 state_estimation:       HighLevel_EKF
 position_control:       HighLevel
