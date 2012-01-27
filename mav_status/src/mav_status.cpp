@@ -1,0 +1,113 @@
+/*
+ * mav_status.cpp
+ *
+ *  Created on: Jan 27, 2012
+ *      Author: acmarkus
+ */
+
+#include "mav_status.h"
+
+MavStatus::MavStatus():last_update_fcu_(ros::Time(0)), last_update_vismaggps_(ros::Time(0))
+{
+  ros::NodeHandle nh;
+
+  sub_fcu_status_ = nh.subscribe("fcu/status", 100, &MavStatus::fcuCallback, this);
+  sub_ssdk_debug_ = nh.subscribe("fcu/debug", 100, &MavStatus::ssdkCallback, this);
+  sub_vismaggps_status_ = nh.subscribe("sensor_fusion/status", 100, &MavStatus::vismaggpsCallback, this);
+
+  pub_status_ = nh.advertise<mav_status::Status>("mav_status", 10);
+
+  ns_ = ros::this_node::getNamespace();
+
+  // workaround for namespace bug #3617, https://code.ros.org/trac/ros/ticket/3617
+  while(ns_.at(0) == '/')
+    ns_.erase(0, 1);
+  ns_ = "/" + ns_;
+}
+
+void MavStatus::fcuCallback(const asctec_hl_comm::mav_statusConstPtr & msg)
+{
+  status_msg_.header.stamp = msg->header.stamp;
+  last_update_fcu_ = ros::Time::now(); // use current time, otherwise log replay won't work
+
+  status_msg_.gps_lock = msg->gps_status == "GPS fix";
+  status_msg_.gps_num_satellites = msg->gps_num_satellites;
+
+  status_msg_.hl_interface_enabled = msg->serial_interface_enabled;
+
+  if (msg->serial_interface_enabled)
+  {
+    if (msg->flight_mode_ll == "Height")
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_HL_HEIGHT;
+    else if (msg->flight_mode_ll == "GPS")
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_HL_POS;
+    else
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_MANUAL;
+  }
+  else
+  {
+    if (msg->flight_mode_ll == "Height")
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_LL_HEIGHT;
+    else if (msg->flight_mode_ll == "GPS")
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_LL_GPS;
+    else
+      status_msg_.mav_controller_mode = mav_status::Status::MAV_CONTROLLER_MANUAL;
+  }
+}
+
+void MavStatus::ssdkCallback(const asctec_hl_comm::DoubleArrayStampedConstPtr & msg)
+{
+  status_msg_.header.stamp = msg->header.stamp;
+
+  status_msg_.current_setpoint_pos.x = msg->data[24];
+  status_msg_.current_setpoint_pos.y = msg->data[25];
+  status_msg_.current_setpoint_pos.z = msg->data[26];
+  //TODO: get yaw setpoint
+}
+
+void MavStatus::vismaggpsCallback(const vismaggps_fusion::StatusConstPtr & msg)
+{
+  status_msg_.header.stamp = msg->header.stamp;
+  last_update_vismaggps_ =  ros::Time::now(); // use current time, otherwise log replay won't work
+  status_msg_.filter_status = msg->status;
+}
+
+void MavStatus::sendStatus()
+{
+  static unsigned int seq = 0;
+
+  status_msg_.header.seq = seq;
+  status_msg_.header.frame_id = ns_;
+
+  status_msg_.fcu_alive = watchdog(last_update_fcu_);
+  status_msg_.vismaggps_alive = watchdog(last_update_vismaggps_);
+
+  pub_status_.publish(status_msg_);
+}
+
+bool MavStatus::watchdog(const ros::Time & time)
+{
+  return (ros::Time::now() - time) < ros::Duration(WATCHDOG_TIMEOUT);
+}
+
+
+int main(int argc, char** argv){
+
+  ros::init(argc, argv, "status");
+
+  ros::NodeHandle pnh("~");
+  double rate;
+  pnh.param("rate", rate, 2.0);
+
+  ros::Rate r(rate);
+  MavStatus ms;
+
+  while(ros::ok()){
+    ros::spinOnce();
+    ms.sendStatus();
+    r.sleep();
+  }
+
+  return 0;
+}
+
