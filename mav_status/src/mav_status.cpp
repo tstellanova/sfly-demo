@@ -21,8 +21,6 @@ MavStatus::MavStatus():last_update_fcu_(ros::Time(0)), last_update_vismaggps_(ro
   ns_ = ros::this_node::getNamespace();
 
   // workaround for namespace bug #3617, https://code.ros.org/trac/ros/ticket/3617
-
-  ROS_INFO_STREAM("ns:"<<ns_);
   while(ns_.at(0) == '/'){
     ns_.erase(0, 1);
     if(ns_.empty())
