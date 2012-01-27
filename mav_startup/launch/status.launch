@@ -1,0 +1,7 @@
+<launch>
+  <arg name="machine" default="localhost"/>
+  <include file="$(find mav_startup)/machine/$(arg machine).machine" />
+  <group ns="$(arg machine)" clear_params="true">
+    <node machine="$(arg machine)" name="mav_status" pkg="mav_status" type="mav_status" output="screen" respawn="true" /> 
+  </group>
+</launch>

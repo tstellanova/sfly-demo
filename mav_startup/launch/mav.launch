@@ -6,4 +6,5 @@
     <include file="$(find mav_startup)/launch/cam.launch" >              <arg name="machine" value="$(arg machine)"/> </include>
     <include file="$(find mav_startup)/launch/ptam.launch" >             <arg name="machine" value="$(arg machine)"/> </include>
     <include file="$(find mav_startup)/launch/sensor_fusion.launch" >    <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/status.launch" >    <arg name="machine" value="$(arg machine)"/> </include>
 </launch>
