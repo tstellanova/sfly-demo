@@ -1,7 +1,13 @@
 # bluefox #25000084 with 2mm lens
-Cam_fx: 0.572517
-Cam_fy: 0.898205
-Cam_cx: 0.527335
-Cam_cy: 0.531387
-Cam_s: 0.926949
+#Cam_fx: 0.572517
+#Cam_fy: 0.898205
+#Cam_cx: 0.527335
+#Cam_cy: 0.531387
+#Cam_s: 0.926949
 
+# bluefox #25000081 on hex mav1 with 2.8mm lens
+Cam_fx: 0.577446
+Cam_fy: 0.902735
+Cam_cx: 0.502669
+Cam_cy: 0.525108
+Cam_s: 0.91816
