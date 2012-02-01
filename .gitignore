@@ -1,0 +1,6 @@
+mav_status/.cproject
+mav_status/.project
+mav_status/bin/
+mav_status/build/
+mav_status/msg_gen/
+mav_status/src/mav_status/
