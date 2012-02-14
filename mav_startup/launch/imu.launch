@@ -3,7 +3,7 @@
   <include file="$(find mav_startup)/machine/$(arg machine).machine" />
   <group ns="$(arg machine)" clear_params="true">
     <node machine="$(arg machine)" name="fcu" pkg="asctec_hl_interface" type="hl_node" output="screen" respawn="true" >       
-      <param name="frame_id" value="$(arg machine)/fcu" />
+      <param name="frame_id" value="$(arg machine)" />
       <rosparam file="$(find mav_startup)/parameters/fcu_parameters.yaml" /> 
       <rosparam file="$(find mav_startup)/parameters/ssdk_parameters.yaml" />       
     </node>
