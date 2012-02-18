@@ -17,5 +17,5 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 
-rosbuild_add_executable(joy src/joy.cpp)
+rosbuild_add_executable(mav_joy src/joy.cpp)
 rosbuild_add_executable(test_change_detector src/test_change_detector.cpp)
