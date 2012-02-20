@@ -1,0 +1,19 @@
+<package>
+  <description brief="mav_joy">
+
+     mav_joy
+
+  </description>
+  <author>Markus Achtelik</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mav_joy</url>
+  <depend package="roscpp"/>
+  <depend package="asctec_hl_comm"/>
+  <depend package="sensor_msgs"/>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/>
+
+</package>
+
+

@@ -1,0 +1,9 @@
+# list the topics separated by "," that should be exchanged with a remote master. 
+
+# local topics that a remote master should see
+local_pubs: []
+
+# remote topics that a local master should see
+# this is incredibly ugly, but I couldn't manage to set mavX by argument
+
+foreign_pubs: [mav1/fcu/status,mav1/fcu/gps_pose,mav2/sensor_fusion/pose_throttle,/rssi]
