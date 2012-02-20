@@ -9,6 +9,6 @@
 	    <remap from="sensor_fusion/mag_dir" to="fcu/mag" />
 	    <remap from="sensor_fusion/gps_pos" to="fcu/gps_position_custom" />
 	    <remap from="sensor_fusion/cvg_pose" to="/tf_distort/sfly_hex" />
-	    <rosparam file="$(find mav_startup)/parameters/dekf.yaml"/>
+	    <!--rosparam file="$(find mav_startup)/parameters/dekf.yaml"/-->
     </node>
 </launch>
