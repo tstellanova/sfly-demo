@@ -1,0 +1,11 @@
+<launch>
+    <arg name="machine" default="localhost"/>
+    <include file="$(find mav_startup)/machine/$(arg machine).machine" />
+
+    <node machine="$(arg machine)" name="ptam_filter" pkg="pose_filter_updates" type="ptam_filter"  respawn="true" clear_params="true" output="screen" ns="$(arg machine)">
+	    <remap from="pose_filter/hl_state_input" to="fcu/ekf_state_out" />
+	    <remap from="pose_filter/correction" to="fcu/ekf_state_in" />
+	    <remap from="pose_filter/pose_measurement" to="vslam/pose" />
+	    <rosparam file="$(find mav_startup)/parameters/dekf.yaml"/>
+    </node>
+</launch>
