@@ -6,4 +6,4 @@ local_pubs: []
 # remote topics that a local master should see
 # this is incredibly ugly, but I couldn't manage to set mavX by argument
 
-foreign_pubs: [mav1/fcu/status,mav1/fcu/gps_pose,mav1/sensor_fusion/pose_throttle,/rssi]
+foreign_pubs: [mav1/fcu/gps_pose,/rssi]

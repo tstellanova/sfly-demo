@@ -1,6 +1,6 @@
 <launch>
-  <arg name="master" />
-  <node pkg="multimaster" type="master_sync.py" name="master_sync" output="screen"> 
+  <arg name="machine" />
+  <node pkg="multimaster" type="master_sync.py" name="$(arg machine)/master_sync" output="screen"> 
     <param name="foreign_master" value="http://$(arg machine)-wlan:11311" />      
     <rosparam command="load" file="$(find mav_startup)/parameters/$(arg machine)_multimaster.yaml" />
   </node>

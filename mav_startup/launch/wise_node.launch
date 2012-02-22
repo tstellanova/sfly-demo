@@ -4,8 +4,7 @@
   <group ns="$(arg machine)" clear_params="true">
     <node machine="$(arg machine)" name="widemac_pub" pkg="sfly_widemac_com" type="widemac_pub" output="screen" respawn="true" >       
       <param name="port" value="/dev/ttyS3" />  
-    </node>
-    <node pkg="topic_tools" type="throttle" name="sensor_fusion_pose_throttle" respawn="true" args="messages $(arg machine)/sensor_fusion/pose 10"/> 
+    </node> 
   </group>
 </launch>
 

@@ -1,0 +1,5 @@
+<launch>
+    <arg name="machine" default="localhost"/>
+    <include file="$(find mav_startup)/launch/wise_node.launch" >              <arg name="machine" value="$(arg machine)"/> </include>
+    <include file="$(find mav_startup)/launch/multimaster.launch" >            <arg name="machine" value="$(arg machine)"/> </include>
+</launch>
