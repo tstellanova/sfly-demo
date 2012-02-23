@@ -74,12 +74,26 @@ Joy::Joy() :
 
 bool Joy::controlEnabled()
 {
-  return current_joy_.buttons[buttons_.ctrl_enable] == 1;
+  int button_size = current_joy_.buttons.size();
+  if (buttons_.ctrl_enable >= button_size)
+  {
+    ROS_ERROR("button index (%d) out of range (%d)", buttons_.ctrl_enable, button_size);
+    return false;
+  }
+  else
+    return current_joy_.buttons[buttons_.ctrl_enable] == 1;
 }
 
 bool Joy::functionsEnabled()
 {
-  return current_joy_.buttons[buttons_.function_enable] == 1;
+  int button_size = current_joy_.buttons.size();
+  if (buttons_.function_enable >= button_size)
+  {
+    ROS_ERROR("button index (%d) out of range (%d)", buttons_.function_enable, button_size);
+    return false;
+  }
+  else
+    return current_joy_.buttons[buttons_.function_enable] == 1;
 }
 
 void Joy::joyCallback(const sensor_msgs::JoyConstPtr & msg)
