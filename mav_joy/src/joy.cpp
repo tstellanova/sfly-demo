@@ -244,22 +244,50 @@ void Joy::ptamResetCallback(int val)
 
 void Joy::ptamAutoInitCallback(int val)
 {
-  if (val == 1)
+  if (functionsEnabled())
   {
-    ROS_WARN("Autoinit not implemented yet ;)");
-    // dynreconf call ...
-  };
+    if (val == 1)
+    {
+      ptam_autoinit_trigger_start_ = ros::Time::now();
+    }
+    else if (val == 0)
+    {
+      ros::Duration dt = ros::Time::now() - ptam_autoinit_trigger_start_;
+      if (dt.toSec() > 2.0)
+        setDynParam("ptam \"{'AutoInit':true}\"");
+      else
+        setDynParam("ptam \"{'AutoInit':false}\"");
+    }
+  }
 }
 
 bool Joy::setDynParam(const std::string & param_string)
 {
-  int ret = system(std::string("rosrun dynamic_reconfigure dynparam set --timeout=2 " + param_string).c_str());
+  std::string ret = sysExec(std::string("rosrun dynamic_reconfigure dynparam set --timeout=2 " + param_string));
+  if (ret == "")
+    ROS_INFO_STREAM("SUCCESS: reconfigure call for \""<< param_string <<"\"");
+  else
+    ROS_ERROR_STREAM("ERROR: reconfigure call for "<<param_string <<" failed: "<<ret);
 
-  ROS_INFO_COND(ret == 0, "dynamic reconfigure call for %s succeeded", param_string.c_str());
-  ROS_WARN_COND(ret != 0, "dynamic reconfigure call for %s failed", param_string.c_str());
-
-  return ret == 0;
+  return ret == "";
 }
+
+std::string Joy::sysExec(const std::string & cmd)
+{
+  FILE* pipe = popen(cmd.c_str(), "r");
+  if (!pipe)
+    return "ERROR";
+  char buffer[128];
+  std::string result = "";
+  while (!feof(pipe))
+  {
+    if (fgets(buffer, 128, pipe) != NULL)
+      result += buffer;
+  }
+  pclose(pipe);
+  return result;
+}
+
 
 int main(int argc, char** argv)
 {
