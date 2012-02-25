@@ -41,6 +41,8 @@ struct ButtonAssignment
   int ptam_space;
   int ptam_auto_init;
   int filter_init;
+  int set_height_zero;
+  int schoof;
 };
 
 struct VMax
@@ -58,8 +60,10 @@ private:
   ros::NodeHandle nh_;
   ros::Publisher ctrl_pub_;
   ros::Publisher ptam_cmd_pub_;
+  ros::Publisher schoof_pub_;
   ros::Subscriber joy_sub_;
   ros::Subscriber pose_sub_;
+  ros::ServiceClient zero_height_cl_;
 
   std::string namespace_;
 
@@ -96,6 +100,8 @@ private:
   void ptamSpaceCallback(int val);
   void ptamResetCallback(int val);
   void ptamAutoInitCallback(int val);
+  void schoofCallback(int val);
+  void zeroHeightCallback(int val);
 
   void watchdog(const ros::TimerEvent & e);
 
