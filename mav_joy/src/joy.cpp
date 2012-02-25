@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
+#include <std_msgs/String.h>
+#include <std_srvs/Empty.h>
 
 Joy::Joy() :
   first_joy_callback_(true)
@@ -20,6 +22,9 @@ Joy::Joy() :
   ptam_cmd_pub_ = nh_.advertise<std_msgs::String> ("vslam/key_pressed", 10);
 
   ctrl_pub_ = nh_.advertise<asctec_hl_comm::mav_ctrl> ("fcu/control_body", 10);
+  schoof_pub_ = nh_.advertise<std_msgs::String> ("schoof", 10);
+
+  zero_height_cl_ = nh.serviceClient<std_srvs::Empty>("set_height_zero");
 
   mav_ctrl_.header.seq = 1;
   mav_ctrl_.type = asctec_hl_comm::mav_ctrl::velocity;
@@ -38,30 +43,36 @@ Joy::Joy() :
   pnh.param("v_max_yaw", v_max_.yaw, 45.0); // deg/s
   v_max_.yaw *= (M_PI / 180.0);
 
-  // defaults for Logitech Wireless Gamepad F710
+  // defaults for Logitech Wireless Gamepad F710 (in D-mode!)
   pnh.param("channel_x_", axes_.x, 3);
   pnh.param("channel_y_", axes_.y, 2);
   pnh.param("channel_z_", axes_.z, 1);
   pnh.param("channel_yaw_", axes_.yaw, 0);
-  pnh.param("channel_takeoff_", buttons_.takeoff, 9);
+
+
   pnh.param("channel_ctrl_enable_", buttons_.ctrl_enable, 4);
   pnh.param("channel_ctrl_enable_", buttons_.function_enable, 5);
   pnh.param("channel_ptam_reset_", buttons_.ptam_reset, 2);
   pnh.param("channel_ptam_space_", buttons_.ptam_space, 3);
   pnh.param("channel_ptam_auto_init_", buttons_.ptam_auto_init, 1);
   pnh.param("channel_filter_init_", buttons_.filter_init, 0);
+  pnh.param("channel_set_height_zero", buttons_.set_height_zero, 8);
+  pnh.param("channel_schoof", buttons_.schoof, 9);
+//  pnh.param("channel_takeoff_", buttons_.takeoff, 9);
 
   pnh.param("direction_x", axes_direction_.x, 1);
   pnh.param("direction_y", axes_direction_.y, 1);
   pnh.param("direction_z", axes_direction_.z, 1);
   pnh.param("direction_yaw", axes_direction_.yaw, 1);
 
-  button_handler_.registerCallback(buttons_.takeoff, &Joy::takeoffCallback, this);
+//  button_handler_.registerCallback(buttons_.takeoff, &Joy::takeoffCallback, this);
   button_handler_.registerCallback(buttons_.filter_init, &Joy::filterInitCallback, this);
   button_handler_.registerCallback(buttons_.ptam_space, &Joy::ptamSpaceCallback, this);
   button_handler_.registerCallback(buttons_.ptam_reset, &Joy::ptamResetCallback, this);
   button_handler_.registerCallback(buttons_.ptam_auto_init, &Joy::ptamAutoInitCallback, this);
   button_handler_.registerCallback(buttons_.ctrl_enable, &Joy::ctrlEnableCallback, this);
+  button_handler_.registerCallback(buttons_.schoof, &Joy::schoofCallback, this);
+  button_handler_.registerCallback(buttons_.set_height_zero, &Joy::zeroHeightCallback, this);
 
   namespace_ = nh.getNamespace();
   if (namespace_ != "/")
@@ -200,7 +211,7 @@ void Joy::poseCallback(const geometry_msgs::PoseStampedConstPtr & msg)
 
 void Joy::takeoffCallback(int val)
 {
-  std::cout << "takeoff: " << val << std::endl;
+  std::cout << "takeoff: " << val << "not implemented yet" << std::endl;
 }
 
 void Joy::filterInitCallback(int val)
@@ -253,11 +264,35 @@ void Joy::ptamAutoInitCallback(int val)
     else if (val == 0)
     {
       ros::Duration dt = ros::Time::now() - ptam_autoinit_trigger_start_;
-      if (dt.toSec() > 2.0)
+      if (dt.toSec() > 1.0)
         setDynParam("ptam \"{'AutoInit':true}\"");
       else
         setDynParam("ptam \"{'AutoInit':false}\"");
     }
+  }
+}
+
+void Joy::schoofCallback(int val)
+{
+  if(functionsEnabled())
+  {
+    if(val == 1){
+      std_msgs::StringPtr maeh(new std_msgs::String);
+      maeh->data = "maeh";
+      schoof_pub_.publish(maeh);
+    }
+  }
+}
+
+void Joy::zeroHeightCallback(int val)
+{
+  if(functionsEnabled())
+  {
+    std_srvs::Empty srv;
+    if(zero_height_cl_.call(srv))
+      ROS_INFO("SUCCESS: set height to zero");
+    else
+      ROS_ERROR("ERROR: set height to zero failed");
   }
 }
 
