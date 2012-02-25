@@ -73,6 +73,8 @@ private:
 
   ros::Timer watchdog_timer_;
 
+  ros::Time ptam_autoinit_trigger_start_;
+
   VMax v_max_;
 
   bool first_joy_callback_;
@@ -96,6 +98,8 @@ private:
   void ptamAutoInitCallback(int val);
 
   void watchdog(const ros::TimerEvent & e);
+
+  std::string sysExec(const std::string & cmd);
 
 public:
   Joy();
