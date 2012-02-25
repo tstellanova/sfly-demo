@@ -1,0 +1,9 @@
+# /bin/sh
+
+#roslaunch mav_startup mav.launch machine:=$1 location:=$2 &
+rxconsole &
+rosrun ptam remote_ptam vslam/preview:=$1/vslam/preview vslam/key_pressed:=$1/vslam/key_pressed &
+rosrun dynamic_reconfigure reconfigure_gui &
+rosrun dynamic_reconfigure reconfigure_gui &
+rosrun sensor_fusion_core plot_check $1
+
