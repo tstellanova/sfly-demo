@@ -264,7 +264,7 @@ void Joy::ptamAutoInitCallback(int val)
     else if (val == 0)
     {
       ros::Duration dt = ros::Time::now() - ptam_autoinit_trigger_start_;
-      if (dt.toSec() > 2.0)
+      if (dt.toSec() > 1.0)
         setDynParam("ptam \"{'AutoInit':true}\"");
       else
         setDynParam("ptam \"{'AutoInit':false}\"");
