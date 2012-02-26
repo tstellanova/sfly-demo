@@ -1,4 +1,13 @@
-# /bin/sh
+#! /bin/sh
+
+if [ -n "$1" ]
+then
+  echo "running for $1"
+else
+  echo "usage: startup [mav] [location]"
+  return
+fi
+
 
 #roslaunch mav_startup mav.launch machine:=$1 location:=$2 &
 rxconsole &

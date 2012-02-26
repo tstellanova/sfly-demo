@@ -28,4 +28,4 @@ UseKFPixelDist: True
 NoLevelZeroMapPoints: True
 FASTMethod: OAST16
 MaxStereoInitLoops: 4
-AutoInitPixel: 40
+AutoInitPixel: 20
