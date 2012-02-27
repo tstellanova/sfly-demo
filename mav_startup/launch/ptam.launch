@@ -5,8 +5,10 @@
     
     <node name="ptam" pkg="ptam" type="ptam" clear_params="true" respawn="true" output="screen" machine="$(arg machine)" ns="$(arg machine)">
 	    <remap from="image" to="camera/image_raw" />
+		<remap from="vslam/preview" to="vslam/preview_high"/>
 	    <param name="image_transport" value="raw" />
       <rosparam file="$(find mav_startup)/parameters/ptam.yaml" />
       <rosparam file="$(find mav_startup)/parameters/$(arg machine)_cam_calib.yaml" />
 	  </node>
+	<node name="ptam_throttle" pkg="topic_tools" type="throttle" args="messages vslam/preview_high 10 vslam/preview" respawn="true" output="screen" machine="$(arg machine)" ns="$(arg machine)" />
 </launch>
