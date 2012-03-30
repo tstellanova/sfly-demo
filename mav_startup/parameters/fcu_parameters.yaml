@@ -12,4 +12,4 @@ max_velocity_z:         1.0
 state_estimation:       HighLevel_EKF
 position_control:       HighLevel
 
-battery_warning:        10.7
+battery_warning:        10.9
