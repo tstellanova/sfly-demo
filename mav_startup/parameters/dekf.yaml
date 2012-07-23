@@ -24,3 +24,12 @@ meas_noise6: 1.0    # gps vel xy noise multiplier
 meas_noise7: 1.0    # cvg att noise multiplier
 meas_noise8: 1.0    # cvg pos noise multiplier
 
+init/q_ci/w: 0.0
+init/q_ci/x: 1.0    # not a unit quaterion, but let the filter normalize it ;)
+init/q_ci/y: -1.0
+init/q_ci/z: 0.0
+
+use_fixed_covariance: false
+measurement_world_sensor: false
+ 
+
