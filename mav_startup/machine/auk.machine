@@ -1,0 +1,4 @@
+<launch>
+    <machine name="auk" address="auk-wlan" user="asl" timeout="10" env-loader="/home/asl/ros_env_loader" />    
+    <!--machine name="auk" address="192.168.0.102" user="asl" timeout="10" env-loader="$(find mav_startup)/machine/env_loader_auk" default="true"-->    
+</launch>

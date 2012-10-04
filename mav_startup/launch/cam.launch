@@ -2,7 +2,7 @@
     <arg name="machine" default="localhost"/>
     <include file="$(find mav_startup)/machine/$(arg machine).machine" />
 
-    <node name="cam" pkg="bluefox" type="bluefox_node" respawn="true" output="screen" clear_params="true" ns="$(arg machine)" machine="$(arg machine)" cwd="node">
+    <node name="cam" pkg="matrix_vision_camera" type="matrix_vision_camera_node" respawn="true" output="screen" clear_params="true" ns="$(arg machine)" machine="$(arg machine)" cwd="node">
       <param name="frame_id" value="$(arg machine)/camera"/>
       <rosparam file="$(find mav_startup)/parameters/$(arg machine)_cam_guid.yaml"/>    
       <rosparam file="$(find mav_startup)/parameters/bluefox_parameters.yaml"/>    
