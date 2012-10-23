@@ -221,7 +221,7 @@ void Joy::filterInitCallback(int val)
     if (val == 1)
     {
 //      setDynParam("vismaggps_fusion init_filter true");
-      setDynParam("ssf_core set_pressure_height true");
+      setDynParam("ptam_filter set_pressure_height true");
     }
   }
 }
@@ -295,7 +295,7 @@ void Joy::zeroHeightCallback(int val)
 //    else
 //      ROS_ERROR("ERROR: set height to zero failed");
 
-    setDynParam("ssf_core reset_pressure_height true");
+    setDynParam("ptam_filter reset_pressure_height true");
   }
 }
 
