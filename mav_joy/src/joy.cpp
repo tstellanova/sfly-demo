@@ -220,7 +220,8 @@ void Joy::filterInitCallback(int val)
   {
     if (val == 1)
     {
-      setDynParam("vismaggps_fusion init_filter true");
+//      setDynParam("vismaggps_fusion init_filter true");
+      setDynParam("ssf_core set_pressure_height true");
     }
   }
 }
@@ -288,11 +289,13 @@ void Joy::zeroHeightCallback(int val)
 {
   if(functionsEnabled())
   {
-    std_srvs::Empty srv;
-    if(zero_height_cl_.call(srv))
-      ROS_INFO("SUCCESS: set height to zero");
-    else
-      ROS_ERROR("ERROR: set height to zero failed");
+//    std_srvs::Empty srv;
+//    if(zero_height_cl_.call(srv))
+//      ROS_INFO("SUCCESS: set height to zero");
+//    else
+//      ROS_ERROR("ERROR: set height to zero failed");
+
+    setDynParam("ssf_core reset_pressure_height true");
   }
 }
 
