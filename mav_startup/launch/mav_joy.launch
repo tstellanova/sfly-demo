@@ -2,6 +2,8 @@
   <arg name="machine" default=""/>
   <include file="$(find mav_startup)/machine/$(arg machine).machine" />
   <group ns="$(arg machine)" clear_params="true">
-    <node machine="$(arg machine)" name="mav_joy" pkg="mav_joy" type="mav_joy" output="screen" respawn="true" />
+    <node machine="$(arg machine)" name="mav_joy" pkg="mav_joy" type="mav_joy" output="screen" respawn="true" >
+    <param name="v_max_yaw" value="90.0"/>
+    </node>
   </group>
 </launch>

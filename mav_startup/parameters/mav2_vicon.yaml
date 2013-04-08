@@ -1,9 +1,0 @@
-datastream_hostport: vicon:801
-sfly_hex:
-  sfly_hex:
-    zero_pose:
-      orientation: {w: 0.99983222078471412, x: 0.00096398255767066177, y: -0.001538477296517566,
-        z: -0.01822729014261858}
-      position: {x: -0.079294897055502966, y: 0.063064410486914413, z: -0.011055579067907328}
-stream_mode: ClientPull
-tf_ref_frame_id: /world

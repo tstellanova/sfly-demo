@@ -1,6 +1,6 @@
 ssdk/p21:           12       #Kd xy
-ssdk/p22:            8       #Kp xy
-ssdk/p24:            2       #Ki xy
+ssdk/p22:           10       #Kp xy
+ssdk/p24:            0       #Ki xy
 #ssdk/p24:            0       #Ki xy
 ssdk/p41:           18.01    #L1 xy
 ssdk/p42:           45.18    #L2 xy
@@ -28,7 +28,7 @@ ssdk/p20:            32.0    # max overall thrust [N]
 
 ssdk/p48:            2.0     # max acc refmodel x y [m/s^2]
 ssdk/p49:            2.0     # max acc refmodel z [m/s^2]
-ssdk/p16:            5.0     # max speed refmodel stick input
+ssdk/p16:            1.0     # max speed refmodel stick input
 
 ssdk/listen_on_tf:  false
 

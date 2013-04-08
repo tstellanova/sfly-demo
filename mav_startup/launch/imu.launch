@@ -8,6 +8,6 @@
       <rosparam file="$(find mav_startup)/parameters/ssdk_parameters.yaml" />       
     </node>
     <node machine="$(arg machine)" name="waypoint_server" pkg="asctec_hl_interface" type="waypoint_server" output="screen" />
-    <node machine="$(arg machine)" name="command_converter" pkg="asctec_hl_interface" type="command_converter" output="screen" respawn="true"/>
+    <!--node machine="$(arg machine)" name="command_converter" pkg="asctec_hl_interface" type="command_converter" output="screen" respawn="true"/-->
   </group>
 </launch>
